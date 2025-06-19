@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface RecipeService {
     List<Recipe> getRecipes();
 
-    Optional<Recipe> getRecipe(Long id);
+    Recipe getRecipe(long id);
 
     Recipe createRecipe(Recipe recipe);
 

@@ -22,7 +22,7 @@ public class MedicineServiceImpl implements com.example.pharmacy.service.Medicin
     }
 
     @Override
-    public Optional<Medicine> getMedicine(Long id) {
+    public Optional<Medicine> getMedicine(long id) {
         return this.medicineRepository.findById(id);
     }
 

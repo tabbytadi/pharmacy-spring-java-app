@@ -17,15 +17,15 @@ public class MedicineViewController {
 
     @GetMapping
     public String getMedicines(Model model) {
-        List<Medicine> medicines = medicineService.getMedicines();
+        List<Medicine> medicines = this.medicineService.getMedicines();
         model.addAttribute("medicines", medicines);
-        return "medicines/medicines.html";
+        return "/medicines/medicines.html";
     }
 
     @GetMapping("/create-medicine")
-    public String showCreateMedicine(Model model) {
+    public String showCreateMedicineForm(Model model) {
         model.addAttribute("medicine", new Medicine());
-        return "medicines/create-medicine";
+        return "/medicines/create-medicine";
     }
 
     @PostMapping("/create")
@@ -35,9 +35,9 @@ public class MedicineViewController {
     }
 
     @GetMapping("/edit-medicine/{id}")
-    public String showEditMedicine( Model model, @PathVariable long id) {
+    public String showEditMedicineForm(Model model, @PathVariable long id) {
         model.addAttribute("medicine", this.medicineService.getMedicine(id));
-        return "medicines/edit-medicine";
+        return "/medicines/edit-medicine";
     }
 
     @PostMapping("/update/{id}")
@@ -51,5 +51,6 @@ public class MedicineViewController {
         this.medicineService.deleteMedicine(id);
         return "redirect:/medicines";
     }
+
 
 }

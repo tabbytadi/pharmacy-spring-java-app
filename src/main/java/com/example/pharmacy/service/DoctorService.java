@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface DoctorService {
     List<Doctor> getDoctor();
 
-    Optional<Doctor> getDoctor(Long id);
+    Optional<Doctor> getDoctor(long id);
 
     Doctor createDoctor(Doctor doctor);
 

@@ -19,7 +19,7 @@ public class MedicineApiController {
         return medicineService.getMedicines();
     }
     @GetMapping("/{id}")
-    public Optional<Medicine> getMedicine(@PathVariable Long id) {
+    public Optional<Medicine> getMedicine(@PathVariable long id) {
         return this.medicineService.getMedicine(id);
     }
 

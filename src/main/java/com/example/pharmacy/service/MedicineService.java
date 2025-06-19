@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface MedicineService {
     List<Medicine> getMedicines();
 
-    Optional<Medicine> getMedicine(Long id);
+    Optional<Medicine> getMedicine(long id);
 
     Medicine createMedicine(Medicine medicine);
 

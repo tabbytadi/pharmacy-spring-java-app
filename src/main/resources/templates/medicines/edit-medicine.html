@@ -3,7 +3,7 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <header th:replace="fragments :: header"></header>
-<h4 class="mb-4">Edit Medicine</h4>
+<h4>Edit Medicine</h4>
 <div class="col-6">
     <form action="#" th:action="@{/medicines/update/{id}(id=${medicine.id})}" th:object="${medicine}" method="post">
         <div class="form-group">

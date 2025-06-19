@@ -23,7 +23,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Optional<Doctor> getDoctor(Long id) {
+    public Optional<Doctor> getDoctor(long id) {
         return doctorRepository.findById(id);
     }
 

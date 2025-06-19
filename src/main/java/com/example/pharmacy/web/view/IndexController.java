@@ -15,4 +15,5 @@ public class IndexController {
         model.addAttribute("welcome", welcomeMessage);
         return "index";
     }
+
 }
