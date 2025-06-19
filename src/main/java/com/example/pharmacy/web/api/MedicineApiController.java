@@ -6,20 +6,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/medicines")
 public class MedicineApiController {
     private final MedicineService medicineService;
-
     @GetMapping
     public List<Medicine> getMedicines() {
-        return medicineService.getMedicines();
+
+        return this.medicineService.getMedicines();
     }
     @GetMapping("/{id}")
-    public Optional<Medicine> getMedicine(@PathVariable long id) {
+    public Medicine getMedicine(@PathVariable long id){
         return this.medicineService.getMedicine(id);
     }
 
@@ -29,12 +28,32 @@ public class MedicineApiController {
     }
 
     @PutMapping("/{id}")
-    public Medicine updateMedicine(@RequestBody Medicine medicine, @PathVariable long id) {
+    public Medicine updateMedicine(@RequestBody Medicine medicine,@PathVariable long id) {
         return this.medicineService.updateMedicine(medicine, id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteMedicine(@PathVariable long id) {
         this.medicineService.deleteMedicine(id);
-        }
+    }
+
+    @GetMapping("/by-name/{name}")
+    public List<Medicine> getMedicinesByName(@PathVariable String name) {
+        return this.medicineService.getMedicinesByName(name);
+    }
+
+    @GetMapping("/by-name-starts-with/{name}")
+    public List<Medicine> getMedicinesByNameStartsWith(@PathVariable String name) {
+        return this.medicineService.getMedicinesByNameStartsWith(name);
+    }
+
+    @GetMapping("/by-name/{name}/age-appropriateness/{age}")
+    public List<Medicine> getMedicinesByNameStartsWithAndAgeAppropriatenessGreaterThan(@PathVariable String name, @PathVariable int age) {
+        return this.medicineService.getMedicinesByNameStartsWithAndAgeAppropriatenessGreaterThan(name, age);
+    }
+
+    @GetMapping("/age-appropriateness/{age}/needs-recipe/{needsRecipe}")
+    public List<Medicine> getMedicinesByAgeAppropriatenessGreaterThanAndNeedsRecipe(@PathVariable int age, @PathVariable boolean needsRecipe) {
+        return this.medicineService.getMedicinesByAgeAppropriatenessGreaterThanAndNeedsRecipe(age, needsRecipe);
+    }
 }

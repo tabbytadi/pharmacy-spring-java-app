@@ -8,7 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Medicine extends BaseEntity {
+
     private String name;
+
     private int ageAppropriateness;
+
     private boolean needsRecipe;
 }

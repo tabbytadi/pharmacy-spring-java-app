@@ -58,3 +58,4 @@ public class RecipeServiceImpl implements RecipeService {
         return this.recipeRepository.findAllByCreationDateAndDoctorNameContains(creationDate, doctorName);
     }
 }
+

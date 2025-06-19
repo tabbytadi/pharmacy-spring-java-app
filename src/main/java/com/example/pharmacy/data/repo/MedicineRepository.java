@@ -9,4 +9,5 @@ public interface MedicineRepository extends JpaRepository<Medicine, Long> {
     List<Medicine> findByName(String name);
     List<Medicine> findByNameStartsWith(String name);
     List<Medicine> findByNameStartsWithAndAgeAppropriatenessGreaterThan(String name, int age);
+    List<Medicine> findByAgeAppropriatenessGreaterThanAndNeedsRecipe(int age, boolean needsRecipe);
 }

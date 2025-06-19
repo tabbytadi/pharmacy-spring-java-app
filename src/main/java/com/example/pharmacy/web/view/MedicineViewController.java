@@ -35,7 +35,7 @@ public class MedicineViewController {
     }
 
     @GetMapping("/edit-medicine/{id}")
-    public String showEditMedicineForm(Model model, @PathVariable long id) {
+    public String showEditMedicineForm(Model model, @PathVariable Long id) {
         model.addAttribute("medicine", this.medicineService.getMedicine(id));
         return "/medicines/edit-medicine";
     }

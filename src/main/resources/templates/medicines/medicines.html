@@ -9,6 +9,8 @@
     <table th:if="${medicines.size()>0}" class="table table-hover">
         <th>Id</th>
         <th>Name</th>
+        <th>Age Restriction</th>
+        <th>Needs Recipe</th>
         <th>Edit</th>
         <th>Delete</th>
         <tr th:each="medicine : ${medicines}">

@@ -13,6 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Doctor extends BaseEntity {
+
     private String name;
 
     @OneToMany(mappedBy = "doctor")

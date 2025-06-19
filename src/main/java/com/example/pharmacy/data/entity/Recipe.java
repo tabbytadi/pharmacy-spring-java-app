@@ -12,8 +12,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Recipe extends BaseEntity {
+
     private LocalDate creationDate;
 
-    @ManyToOne  //edin edinstven doktor moje da pishe receptata
+    @ManyToOne //edin edinstven doktor moje da pishe receptata
     private Doctor doctor;
 }

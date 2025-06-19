@@ -3,12 +3,11 @@ package com.example.pharmacy.service;
 import com.example.pharmacy.data.entity.Doctor;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DoctorService {
-    List<Doctor> getDoctor();
+    List<Doctor> getDoctors();
 
-    Optional<Doctor> getDoctor(long id);
+    Doctor getDoctor(long id);
 
     Doctor createDoctor(Doctor doctor);
 

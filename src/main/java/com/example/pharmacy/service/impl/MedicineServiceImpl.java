@@ -2,19 +2,17 @@ package com.example.pharmacy.service.impl;
 
 import com.example.pharmacy.data.entity.Medicine;
 import com.example.pharmacy.data.repo.MedicineRepository;
+import com.example.pharmacy.service.MedicineService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class MedicineServiceImpl implements com.example.pharmacy.service.MedicineService {
+@RequiredArgsConstructor
+public class MedicineServiceImpl implements MedicineService {
 
     private final MedicineRepository medicineRepository;
-
-    public MedicineServiceImpl(MedicineRepository medicineRepository) {
-        this.medicineRepository = medicineRepository;
-    }
 
     @Override
     public List<Medicine> getMedicines() {
@@ -22,8 +20,10 @@ public class MedicineServiceImpl implements com.example.pharmacy.service.Medicin
     }
 
     @Override
-    public Optional<Medicine> getMedicine(long id) {
-        return this.medicineRepository.findById(id);
+    public Medicine getMedicine(long id) {
+        return this.medicineRepository
+                .findById(id)
+                .orElseThrow(() -> new RuntimeException("Medicine with id=" + id + " not found!"));
     }
 
     @Override
@@ -37,13 +37,33 @@ public class MedicineServiceImpl implements com.example.pharmacy.service.Medicin
                 .map(medicine1 -> {
                     medicine1.setName(medicine.getName());
                     return this.medicineRepository.save(medicine1);
-                }).orElseGet(()->
-                     this.medicineRepository.save(medicine)
+                }).orElseGet(() ->
+                        this.medicineRepository.save(medicine)
                 );
     }
 
     @Override
     public void deleteMedicine(long id) {
         this.medicineRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Medicine> getMedicinesByName(String name) {
+        return this.medicineRepository.findByName(name);
+    }
+
+    @Override
+    public List<Medicine> getMedicinesByNameStartsWith(String name) {
+        return this.medicineRepository.findByNameStartsWith(name);
+    }
+
+    @Override
+    public List<Medicine> getMedicinesByNameStartsWithAndAgeAppropriatenessGreaterThan(String name, int age) {
+        return this.medicineRepository.findByNameStartsWithAndAgeAppropriatenessGreaterThan(name, age);
+    }
+
+    @Override
+    public List<Medicine> getMedicinesByAgeAppropriatenessGreaterThanAndNeedsRecipe(int age, boolean needsRecipe) {
+        return this.medicineRepository.findByAgeAppropriatenessGreaterThanAndNeedsRecipe(age, needsRecipe);
     }
 }
