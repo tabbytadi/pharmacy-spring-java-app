@@ -1,7 +1,12 @@
 package com.example.pharmacy.web.api;
 
 import com.example.pharmacy.data.entity.Medicine;
+import com.example.pharmacy.dto.CreateMedicineDTO;
+import com.example.pharmacy.dto.MedicineDTO;
 import com.example.pharmacy.service.MedicineService;
+import com.example.pharmacy.util.MapperUtil;
+import com.example.pharmacy.web.view.controller.model.CreateMedicineViewModel;
+import com.example.pharmacy.web.view.controller.model.MedicineViewModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,19 +17,21 @@ import java.util.List;
 @RequestMapping("/api/medicines")
 public class MedicineApiController {
     private final MedicineService medicineService;
+    private final MapperUtil mapperUtil;
     @GetMapping
-    public List<Medicine> getMedicines() {
+    public List<MedicineDTO> getMedicines() {
 
         return this.medicineService.getMedicines();
     }
     @GetMapping("/{id}")
-    public Medicine getMedicine(@PathVariable long id){
-        return this.medicineService.getMedicine(id);
+    public MedicineViewModel getMedicine(@PathVariable long id){
+        return mapperUtil.getModelMapper().map(this.medicineService.getMedicine(id), MedicineViewModel.class);
     }
 
     @PostMapping
-    public Medicine createMedicine(@RequestBody Medicine medicine) {
-        return this.medicineService.createMedicine(medicine);
+    public CreateMedicineViewModel createMedicine(@RequestBody CreateMedicineViewModel medicine) {
+        return mapperUtil.getModelMapper().map(this.medicineService
+                .createMedicine(mapperUtil.getModelMapper().map(medicine, CreateMedicineDTO.class)), CreateMedicineViewModel.class);
     }
 
     @PutMapping("/{id}")

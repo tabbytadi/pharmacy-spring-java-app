@@ -1,4 +1,4 @@
-package com.example.pharmacy.web.view;
+package com.example.pharmacy.web.view.controller;
 
 import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;

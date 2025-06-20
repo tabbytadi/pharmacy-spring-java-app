@@ -1,18 +1,21 @@
 package com.example.pharmacy.data.entity;
 
-import jakarta.persistence.ManyToOne;
-
-import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Past;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
 @Setter
 public class Recipe extends BaseEntity {
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Past(message="The date has to be in the past!")
     private LocalDate creationDate;
 
     @ManyToOne //edin edinstven doktor moje da pishe receptata

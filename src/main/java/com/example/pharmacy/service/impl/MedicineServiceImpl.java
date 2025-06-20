@@ -2,7 +2,10 @@ package com.example.pharmacy.service.impl;
 
 import com.example.pharmacy.data.entity.Medicine;
 import com.example.pharmacy.data.repo.MedicineRepository;
+import com.example.pharmacy.dto.CreateMedicineDTO;
+import com.example.pharmacy.dto.MedicineDTO;
 import com.example.pharmacy.service.MedicineService;
+import com.example.pharmacy.util.MapperUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,22 +16,34 @@ import java.util.List;
 public class MedicineServiceImpl implements MedicineService {
 
     private final MedicineRepository medicineRepository;
+    private final MapperUtil mapperUtil;
 
     @Override
-    public List<Medicine> getMedicines() {
-        return this.medicineRepository.findAll();
+    public List<MedicineDTO> getMedicines() {
+
+        return
+                this.mapperUtil
+                        .mapList(
+                                this.medicineRepository.findAll(), MedicineDTO.class);
     }
 
     @Override
-    public Medicine getMedicine(long id) {
-        return this.medicineRepository
-                .findById(id)
-                .orElseThrow(() -> new RuntimeException("Medicine with id=" + id + " not found!"));
+    public MedicineDTO getMedicine(long id) {
+        return
+                this.mapperUtil.getModelMapper().map(
+                        this.medicineRepository
+                                .findById(id).orElseThrow(()
+                                        -> new RuntimeException("Medicine with id=" + id + " not found!")),
+                        MedicineDTO.class);
     }
 
     @Override
-    public Medicine createMedicine(Medicine medicine) {
-        return this.medicineRepository.save(medicine);
+    public CreateMedicineDTO createMedicine(CreateMedicineDTO medicine) {
+        return mapperUtil.getModelMapper()
+                .map(this.medicineRepository
+                        .save(mapperUtil.getModelMapper()
+                                .map(medicine, Medicine.class)), CreateMedicineDTO.class);
+
     }
 
     @Override

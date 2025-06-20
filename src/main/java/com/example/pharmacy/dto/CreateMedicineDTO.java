@@ -1,17 +1,18 @@
-package com.example.pharmacy.data.entity;
+package com.example.pharmacy.dto;
 
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Entity
+@EqualsAndHashCode
 @Getter
 @Setter
-public class Medicine extends BaseEntity {
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class CreateMedicineDTO {
     @NotBlank
     @Size(min = 5, max = 20, message="Min 5, Max 20")
     private String name;
@@ -19,6 +20,4 @@ public class Medicine extends BaseEntity {
     @Min(value = 0, message = "Min 0")
     @Max(value = 18, message = "Max 18")
     private int ageAppropriateness;
-
-    private boolean needsRecipe;
 }

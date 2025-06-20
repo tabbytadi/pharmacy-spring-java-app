@@ -1,10 +1,16 @@
-package com.example.pharmacy.web.view;
+package com.example.pharmacy.web.view.controller;
 
 import com.example.pharmacy.data.entity.Medicine;
+import com.example.pharmacy.dto.CreateMedicineDTO;
 import com.example.pharmacy.service.MedicineService;
+import com.example.pharmacy.util.MapperUtil;
+import com.example.pharmacy.web.view.controller.model.CreateMedicineViewModel;
+import com.example.pharmacy.web.view.controller.model.MedicineViewModel;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,23 +20,29 @@ import java.util.List;
 @RequestMapping("/medicines")
 public class MedicineViewController {
     private final MedicineService medicineService;
+    private final MapperUtil mapperUtil;
 
     @GetMapping
     public String getMedicines(Model model) {
-        List<Medicine> medicines = this.medicineService.getMedicines();
+        List<MedicineViewModel> medicines = mapperUtil
+                .mapList(this.medicineService.getMedicines(), MedicineViewModel.class);
         model.addAttribute("medicines", medicines);
         return "/medicines/medicines.html";
     }
 
     @GetMapping("/create-medicine")
     public String showCreateMedicineForm(Model model) {
-        model.addAttribute("medicine", new Medicine());
+        model.addAttribute("medicine", new CreateMedicineViewModel());
         return "/medicines/create-medicine";
     }
 
     @PostMapping("/create")
-    public String createMedicine(Medicine medicine) {
-        this.medicineService.createMedicine(medicine);
+    public String createMedicine(@Valid @ModelAttribute("medicine") CreateMedicineViewModel medicine, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/medicines/create-medicine";
+        }
+        this.medicineService
+                .createMedicine(mapperUtil.getModelMapper().map(medicine, CreateMedicineDTO.class));
         return "redirect:/medicines";
     }
 
